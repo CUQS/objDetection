@@ -4,6 +4,18 @@
 
 本Application支持运行在Atlas 200 DK实现了对faster-rcnn目标检测网络的实时推理功能。
 
+<p align='center'>
+    <img src='img/img3.jpg' height=300>
+</p>
+
+<p align='center'>
+    <img src='img/pictest.png' height=300>
+</p>
+
+<p align='center'>
+    <img stc='img/realtime.png' width=300>
+</p>
+
 ## 前提条件<a name="zh-cn_topic_0182554604_section137245294533"></a>
 
 部署此Sample前，需要准备好以下环境：
@@ -136,7 +148,7 @@ python3 run_server.py
    ./ascend_segmentation
    ```
 
-   ![image2](img/realTime.png)
+   ![image2](img/realtime.png)
 
    使用测试图片
 

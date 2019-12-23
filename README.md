@@ -9,8 +9,11 @@ The object detection application runs on the Atlas 200 DK and implements the inf
 </p>
 
 <p align='center'>
-    <img src='img/pictest.png' width=300>
-    <img stc='img/realTime.png' width=300>
+    <img src='img/pictest.png' height=300>
+</p>
+
+<p align='center'>
+    <img stc='img/realtime.png' width=300>
 </p>
 
 ## Prerequisites<a name="en-us_topic_0182554604_section137245294533"></a>
@@ -140,7 +143,7 @@ python3 run_server.py
 
    Camera Test
 
-   ![image2](img/realTime.png)
+   ![image2](img/realtime.png)
 
 5.  Picture Test
 
