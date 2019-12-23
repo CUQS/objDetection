@@ -39,8 +39,8 @@ class Server:
             data = data.reshape(600,800,3)
             msg_num = "{:3d}/200".format((200-count))
             msg_fps = "FPS: {:>4.2f}".format(self.fps)
-            img = cv2.putText(data, msg_num, (700, 15), font, 0.5, (0, 0, 255), 1)
-            img = cv2.putText(img, msg_fps, (700, 30), font, 0.5, (0, 0, 255), 1)
+            img = cv2.putText(data, msg_num, (530, 15), font, 0.5, (0, 0, 255), 1)
+            img = cv2.putText(img, msg_fps, (530, 30), font, 0.5, (0, 0, 255), 1)
             cv2.imshow("img", data)
             cv2.waitKey(10)
             count -= 1

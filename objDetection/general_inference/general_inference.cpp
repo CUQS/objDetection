@@ -135,11 +135,11 @@ bool GeneralInference::PreProcessCap(const shared_ptr<EngineTrans> &image_handle
 
   // crop parameters, only resize, no need crop, so set original image size
   // set crop left-top point (need even number)
-  resize_para.crop_left = 240;
-  resize_para.crop_up = 60;
+  resize_para.crop_left = 0;
+  resize_para.crop_up = 0;
   // set crop right-bottom point (need odd number)
-  uint32_t crop_right = 1041;
-  uint32_t crop_down = 661;
+  uint32_t crop_right = 801;
+  uint32_t crop_down = 601;
   resize_para.crop_right = crop_right;
   resize_para.crop_down = crop_down;
 

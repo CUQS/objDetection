@@ -190,13 +190,6 @@ HIAI_StatusT GeneralPost::ModelPostProcessCap(const shared_ptr<EngineTrans> &res
     }
   }
 
-  if (bboxes.empty()) {
-    INFO_LOG("There is none object detected in image %s",
-             result->image_info.path.c_str());
-    return HIAI_OK;
-  }
-
-
   // cout << "--post-- get outputs" << endl;
   // cout << "--post-- unsigned char to mat" << endl;
   uint8_t* pdata = result->image_info.data.get();
@@ -206,12 +199,26 @@ HIAI_StatusT GeneralPost::ModelPostProcessCap(const shared_ptr<EngineTrans> &res
   cv::Mat mat;
   cv::cvtColor(yuvImg, mat, CV_YUV2RGB_NV21);
   // crop image
-  cv::Rect rect(240,60,800,600);
+  cv::Rect rect(0,0,801,601);
   cv::Mat imageCrop = mat(rect);
   // resize iamge
-  // cv::resize(imageCrop, imageCrop, cv::Size(800, 600));
-  stringstream sstream;
+  cv::resize(imageCrop, imageCrop, cv::Size(800, 600));
 
+  if (bboxes.empty()) {
+    INFO_LOG("There is none object detected in image %s",
+             result->image_info.path.c_str());
+    // cout << "--post-- mat changed!!" << endl;
+    int bytes = 0;
+    int image_size = imageCrop.total() * imageCrop.elemSize();
+    // cout << "--post-- send image to server, image_size: " << image_size << endl;
+    if ((bytes = send(sokt, imageCrop.data, image_size, 0)) < 0){
+      close(sokt);
+      cout << "bytes = " << bytes << endl;
+    }
+    return HIAI_OK;
+  }
+
+  stringstream sstream;
   for (int i = 0; i < bboxes.size(); ++i) {
     cv::Point p1, p2;
     p1.x = bboxes[i].lt_x;
@@ -311,7 +318,7 @@ HIAI_StatusT GeneralPost::ModelPostProcessPic(const shared_ptr<EngineTrans> &res
     sstream.str("");
     sstream << bboxes[i].attribute << " ";
     sstream.precision(kScorePrecision);
-    sstream << 100 * bboxes[i].score << "!!";
+    sstream << 100 * bboxes[i].score;
     string obj_str = sstream.str();
     cv::putText(mat, obj_str, cv::Point(p1.x, p1.y + kLabelOffset),
                 cv::FONT_HERSHEY_COMPLEX, kFountScale, kFontColor);
