@@ -77,8 +77,6 @@ main()
     done
     
     cp ${app_path}/objDetection/graph.template ${app_path}/objDetection/out
-
-    # cp ${app_path}/to_out/kittisegRealTime.om ${app_path}/objDetection/out
     cp ${app_path}/to_out/test.png ${app_path}/objDetection/out
 
     echo "Finish to Build app."

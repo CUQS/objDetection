@@ -209,7 +209,7 @@ HIAI_StatusT GeneralPost::ModelPostProcessCap(const shared_ptr<EngineTrans> &res
   cv::Rect rect(240,60,800,600);
   cv::Mat imageCrop = mat(rect);
   // resize iamge
-  // cv::resize(imageCrop, imageCrop, cv::Size(623, 188));
+  // cv::resize(imageCrop, imageCrop, cv::Size(800, 600));
   stringstream sstream;
 
   for (int i = 0; i < bboxes.size(); ++i) {
@@ -223,7 +223,7 @@ HIAI_StatusT GeneralPost::ModelPostProcessCap(const shared_ptr<EngineTrans> &res
     sstream.str("");
     sstream << bboxes[i].attribute << " ";
     sstream.precision(kScorePrecision);
-    sstream << 100 * bboxes[i].score << "%(Test!!)";
+    sstream << 100 * bboxes[i].score;
     string obj_str = sstream.str();
     cv::putText(imageCrop, obj_str, cv::Point(p1.x, p1.y + kLabelOffset),
                 cv::FONT_HERSHEY_COMPLEX, kFountScale, kFontColor);
@@ -294,25 +294,29 @@ HIAI_StatusT GeneralPost::ModelPostProcessPic(const shared_ptr<EngineTrans> &res
               result->image_info.path.c_str());
     return HIAI_ERROR;
   }
-  float scale_width = (float)mat.cols / result->image_info.width;
-  float scale_height = (float)mat.rows / result->image_info.height;
+
+  cv::resize(mat, mat, cv::Size(800, 600));
+
+  // float scale_width = (float)mat.cols / result->image_info.width;
+  // float scale_height = (float)mat.rows / result->image_info.height;
   stringstream sstream;
   for (int i = 0; i < bboxes.size(); ++i) {
     cv::Point p1, p2;
-    p1.x = scale_width * bboxes[i].lt_x;
-    p1.y = scale_height * bboxes[i].lt_y;
-    p2.x = scale_width * bboxes[i].rb_x;
-    p2.y = scale_height * bboxes[i].rb_y;
+    p1.x = bboxes[i].lt_x;
+    p1.y = bboxes[i].lt_y;
+    p2.x = bboxes[i].rb_x;
+    p2.y = bboxes[i].rb_y;
     cv::rectangle(mat, p1, p2, kColors[i % kColors.size()], kLineSolid);
 
     sstream.str("");
     sstream << bboxes[i].attribute << " ";
     sstream.precision(kScorePrecision);
-    sstream << 100 * bboxes[i].score << "%(Test!!)";
+    sstream << 100 * bboxes[i].score << "!!";
     string obj_str = sstream.str();
     cv::putText(mat, obj_str, cv::Point(p1.x, p1.y + kLabelOffset),
                 cv::FONT_HERSHEY_COMPLEX, kFountScale, kFontColor);
   }
+
   // cout << "mat changed!!" << endl;
   int bytes = 0;
   int image_size = mat.total() * mat.elemSize();
