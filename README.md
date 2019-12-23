@@ -13,7 +13,7 @@ The object detection application runs on the Atlas 200 DK and implements the inf
 </p>
 
 <p align='center'>
-    <img stc='img/realtime.png' width=300>
+    <img src='img/realtime.png' width=300>
 </p>
 
 ## Prerequisites<a name="en-us_topic_0182554604_section137245294533"></a>

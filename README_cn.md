@@ -13,7 +13,7 @@
 </p>
 
 <p align='center'>
-    <img stc='img/realtime.png' width=300>
+    <img src='img/realtime.png' width=300>
 </p>
 
 ## 前提条件<a name="zh-cn_topic_0182554604_section137245294533"></a>
